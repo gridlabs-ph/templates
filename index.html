@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download your purchase</title>
+<style>
+  :root {
+    --bg: #f3f5f2; --ink: #1d2a24; --muted: #5d6b64;
+    --panel: #ffffff; --line: #d3dad5; --accent: #1f5c46; --accent-ink: #ffffff; --error: #a3261b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121815; --ink: #e6ede8; --muted: #93a39a;
+      --panel: #1a221e; --line: #2c3731; --accent: #5fbf98; --accent-ink: #0d1a14; --error: #ff8a7d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px;
+    background: var(--bg); color: var(--ink);
+    font: 16px/1.5 Georgia, "Times New Roman", serif;
+  }
+  main { width: 100%; max-width: 460px; }
+  h1 { font-size: 2rem; line-height: 1.15; margin: 0 0 8px; font-weight: 600; }
+  p.lead { color: var(--muted); margin: 0 0 28px; }
+  form { display: flex; gap: 8px; }
+  input {
+    flex: 1; min-width: 0; padding: 14px 16px; font: 600 1rem ui-monospace, Menlo, Consolas, monospace;
+    letter-spacing: .08em; text-transform: uppercase;
+    background: var(--panel); color: var(--ink); border: 1.5px solid var(--line); border-radius: 6px;
+  }
+  button, a.file {
+    font: 600 1rem system-ui, sans-serif; border-radius: 6px; cursor: pointer;
+  }
+  button {
+    padding: 0 20px; border: 0; background: var(--accent); color: var(--accent-ink);
+  }
+  button:disabled { opacity: .6; cursor: wait; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  #msg { min-height: 1.5em; margin: 12px 0 0; color: var(--error); font: 0.95rem system-ui, sans-serif; }
+  #files { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
+  a.file {
+    display: block; padding: 14px 16px; text-decoration: none;
+    background: var(--panel); color: var(--ink); border: 1.5px solid var(--line);
+  }
+  a.file:hover { border-color: var(--accent); }
+  .folder { margin-top: 14px; color: var(--muted); font: 600 0.9rem system-ui, sans-serif; }
+  #until { color: var(--muted); font: 0.9rem system-ui, sans-serif; margin-top: 16px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Download your purchase</h1>
+  <p class="lead">Enter the access code from your receipt email.</p>
+
+  <form id="f">
+    <input id="code" autocomplete="off" spellcheck="false" placeholder="ABCD-1234" aria-label="Access code" required>
+    <button id="go" type="submit">Unlock</button>
+  </form>
+  <p id="msg" role="alert"></p>
+  <ul id="files"></ul>
+  <p id="until"></p>
+</main>
+
+<script>
+  // >>> EDIT 1 OF 1: replace with your Cloudflare Worker URL (no trailing slash) <<<
+  const API = "https://katabang.support-gridlabs.workers.dev";
+
+  const f = document.getElementById("f"), msg = document.getElementById("msg"),
+        list = document.getElementById("files"), until = document.getElementById("until"),
+        go = document.getElementById("go");
+
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = ""; list.innerHTML = ""; until.textContent = "";
+    go.disabled = true;
+    try {
+      const res = await fetch(API + "/redeem", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: document.getElementById("code").value }),
+      });
+      const data = await res.json();
+      if (!res.ok) { msg.textContent = data.error || "Something went wrong."; return; }
+      let last = null;
+      data.files.forEach((file) => {
+        const i = file.name.lastIndexOf("/");
+        const folder = i > -1 ? file.name.slice(0, i) : "";
+        if (folder !== last) {
+          const h = document.createElement("li"); h.className = "folder";
+          h.textContent = folder || "Files"; list.appendChild(h); last = folder;
+        }
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.className = "file"; a.href = file.url; a.textContent = file.name.slice(i + 1);
+        li.appendChild(a); list.appendChild(li);
+      });
+      until.textContent = "Your code works until " + new Date(data.expires).toLocaleDateString() +
+        ". Download links expire after 15 minutes, so unlock again if one stops working.";
+    } catch {
+      msg.textContent = "Could not reach the server. Check your connection and try again.";
+    } finally {
+      go.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

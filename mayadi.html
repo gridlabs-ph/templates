@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code manager</title>
+<style>
+  :root { --bg:#f3f5f2; --ink:#1d2a24; --muted:#5d6b64; --panel:#fff; --line:#d3dad5; --accent:#1f5c46; --on:#fff; --bad:#a3261b; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg:#121815; --ink:#e6ede8; --muted:#93a39a; --panel:#1a221e; --line:#2c3731; --accent:#5fbf98; --on:#0d1a14; --bad:#ff8a7d; } }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:24px; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,sans-serif; }
+  main { max-width: 860px; margin: 0 auto; display: grid; gap: 28px; }
+  h1 { font: 600 1.8rem Georgia, serif; margin: 0; }
+  h2 { font: 600 1.1rem Georgia, serif; margin: 0 0 10px; }
+  section { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px; }
+  label { display:block; font-weight:600; margin:12px 0 4px; }
+  input[type=text], input[type=password], input[type=number] { width:100%; padding:10px; border:1.5px solid var(--line); border-radius:6px; background:var(--bg); color:var(--ink); font:inherit; }
+  .row { display:flex; gap:12px; } .row > div { flex:1; }
+  button { padding:10px 16px; border:0; border-radius:6px; background:var(--accent); color:var(--on); font:600 .95rem system-ui; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--ink); border:1.5px solid var(--line); padding:5px 10px; font-size:.85rem; }
+  button.danger { color:var(--bad); }
+  :focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+  #picker { max-height:220px; overflow:auto; border:1.5px solid var(--line); border-radius:6px; padding:8px 12px; background:var(--bg); }
+  #picker label { font-weight:400; margin:3px 0; display:flex; gap:8px; align-items:center; }
+  #picker .dir { font-weight:600; }
+  .result { margin-top:14px; padding:12px; border:1.5px dashed var(--accent); border-radius:6px; white-space:pre-wrap; }
+  #err { color:var(--bad); min-height:1.4em; }
+  .tablewrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  th, td { text-align:left; padding:8px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .expired { color:var(--bad); }
+  code { font: 600 .9rem ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Code manager</h1>
+
+  <section>
+    <h2>Admin login</h2>
+    <div class="row">
+      <div><input id="token" type="password" placeholder="Admin token" aria-label="Admin token" autocomplete="off"></div>
+      <button id="login">Load</button>
+    </div>
+    <p id="err" role="alert"></p>
+  </section>
+
+  <section>
+    <h2>Create a code</h2>
+    <label for="name">Client name</label>
+    <input id="name" type="text" placeholder="Maria Santos">
+    <div class="row">
+      <div><label for="email">Email</label><input id="email" type="text" placeholder="maria@email.com"></div>
+      <div><label for="phone">Phone</label><input id="phone" type="text" placeholder="0917 123 4567"></div>
+      <div><label for="social">Social handle</label><input id="social" type="text" placeholder="@maria on Instagram"></div>
+    </div>
+    <div class="row">
+      <div><label for="amount">Amount paid</label><input id="amount" type="text" placeholder="PHP 499"></div>
+      <div><label for="note">Payment reference / note</label><input id="note" type="text" placeholder="GCash ref 1234"></div>
+    </div>
+    <div class="row">
+      <div><label for="days">Valid for (days)</label><input id="days" type="number" min="1" value="14"></div>
+      <div><label for="uses">Max unlocks</label><input id="uses" type="number" min="1" value="5"></div>
+    </div>
+    <label>Files and folders they can access</label>
+    <div id="picker">Log in to load your files.</div>
+    <p><button id="make">Generate code</button></p>
+    <div id="out"></div>
+  </section>
+
+  <section>
+    <h2>Client codes</h2>
+    <p><button id="export" class="ghost">Export all to CSV</button></p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Code</th><th>Client</th><th>Created</th><th>Status</th><th>Used</th><th>Access</th><th></th></tr></thead>
+      <tbody id="rows"><tr><td colspan="7">Log in to load codes.</td></tr></tbody>
+    </table></div>
+  </section>
+</main>
+
+<script>
+  // >>> EDIT 1 OF 2: replace with your Cloudflare Worker URL (no trailing slash) <<<
+  const API = "https://katabang.support-gridlabs.workers.dev";
+  // >>> EDIT 2 OF 2: only change this if your repo name is not "templates" <<<
+  const BUYER_PAGE = "https://gridlabs-ph.github.io/templates/";
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  let codes = [];
+
+  async function call(path, method = "GET", body) {
+    const res = await fetch(API + path, {
+      method,
+      headers: { Authorization: "Bearer " + $("token").value, "Content-Type": "application/json" },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Request failed");
+    return data;
+  }
+
+  async function load() {
+    $("err").textContent = "";
+    try {
+      const [f, c] = await Promise.all([call("/admin/files"), call("/admin/codes")]);
+      renderPicker(f.files); codes = c.codes; renderCodes();
+    } catch (e) { $("err").textContent = e.message; }
+  }
+
+  function renderPicker(files) {
+    const dirs = new Set();
+    files.forEach((k) => { const p = k.split("/"); p.pop(); let acc = ""; p.forEach((seg) => { acc += seg + "/"; dirs.add(acc); }); });
+    const items = [...dirs].map((d) => ({ v: d, dir: true })).concat(files.map((k) => ({ v: k, dir: false })))
+      .sort((a, b) => a.v.localeCompare(b.v));
+    $("picker").innerHTML = items.length ? items.map((it) =>
+      `<label class="${it.dir ? "dir" : ""}"><input type="checkbox" value="${esc(it.v)}"> ${it.dir ? "Folder: " : ""}${esc(it.v)}</label>`).join("")
+      : "No files in the bucket yet.";
+  }
+
+  const status = (c) => c.revoked ? "Revoked" : Date.now() > Date.parse(c.expires) ? "Expired" : "Active until " + new Date(c.expires).toLocaleDateString();
+
+  function renderCodes() {
+    $("rows").innerHTML = codes.length ? codes.sort((a, b) => Date.parse(b.created || 0) - Date.parse(a.created || 0)).map((c) => {
+      const off = c.revoked || Date.now() > Date.parse(c.expires);
+      return `<tr><td><code>${esc(c.code)}</code></td>
+        <td>${esc(c.name)}<br><small>${esc(c.email)}</small><br><small>${esc(c.phone)}</small><br><small>${esc(c.social || c.contact)}</small><br><small>${esc(c.amount)} ${esc(c.note)}</small></td>
+        <td>${c.created ? new Date(c.created).toLocaleDateString() : ""}</td>
+        <td class="${off ? "expired" : ""}">${esc(status(c))}</td>
+        <td>${c.uses || 0}/${c.maxUses}</td><td>${c.access.map(esc).join("<br>")}</td>
+        <td><button class="ghost" data-act="extend" data-c="${esc(c.code)}">+7 days</button>
+            <button class="ghost" data-act="reset" data-c="${esc(c.code)}">Reset uses</button>
+            <button class="ghost danger" data-act="revoke" data-c="${esc(c.code)}">Revoke</button></td></tr>`;
+    }).join("") : `<tr><td colspan="7">No codes yet.</td></tr>`;
+  }
+
+  function csvCell(v) {
+    let t = String(v ?? "");
+    if (/^[=+\-@]/.test(t)) t = "'" + t; // stop spreadsheet formula injection
+    return '"' + t.replace(/"/g, '""') + '"';
+  }
+
+  $("export").onclick = () => {
+    if (!codes.length) { $("err").textContent = "Load codes first."; return; }
+    const head = ["Code","Client","Email","Phone","Social","Amount","Reference","Created","Expires","Status","Uses","Max uses","Access"];
+    const rows = codes.map((c) => [c.code, c.name, c.email, c.phone, c.social || c.contact, c.amount, c.note,
+      c.created ? new Date(c.created).toISOString().slice(0, 10) : "", c.expires ? c.expires.slice(0, 10) : "",
+      status(c), c.uses || 0, c.maxUses, c.access.join("; ")]);
+    const csv = "\ufeff" + [head, ...rows].map((r) => r.map(csvCell).join(",")).join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    a.download = "clients-" + new Date().toISOString().slice(0, 10) + ".csv";
+    a.click(); URL.revokeObjectURL(a.href);
+  };
+
+  $("login").onclick = load;
+
+  $("make").onclick = async () => {
+    const access = [...document.querySelectorAll("#picker input:checked")].map((i) => i.value);
+    if (!access.length) { $("err").textContent = "Tick at least one file or folder."; return; }
+    const expires = new Date(Date.now() + Number($("days").value) * 864e5).toISOString();
+    try {
+      const r = await call("/admin/codes", "POST", { expires, access, maxUses: Number($("uses").value), name: $("name").value, email: $("email").value, phone: $("phone").value, social: $("social").value, amount: $("amount").value, note: $("note").value });
+      $("out").innerHTML = `<div class="result">Thank you, your payment is confirmed.\nGo to: ${esc(BUYER_PAGE)}\nYour access code: ${esc(r.code)}\nValid until ${new Date(r.expires).toLocaleDateString()}.</div>`;
+      load();
+    } catch (e) { $("err").textContent = e.message; }
+  };
+
+  $("rows").onclick = async (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    const c = codes.find((x) => x.code === b.dataset.c); if (!c) return;
+    try {
+      if (b.dataset.act === "revoke") { if (!confirm("Revoke " + c.code + "? The client record stays in your list.")) return; await call("/admin/codes/" + c.code, "DELETE"); }
+      if (b.dataset.act === "extend") { const base = Math.max(Date.now(), Date.parse(c.expires)); await call("/admin/codes/" + c.code, "POST", { ...c, expires: new Date(base + 7 * 864e5).toISOString() }); }
+      if (b.dataset.act === "reset") await call("/admin/codes/" + c.code, "POST", { ...c, uses: 0 });
+      load();
+    } catch (err) { $("err").textContent = err.message; }
+  };
+</script>
+</body>
+</html>
