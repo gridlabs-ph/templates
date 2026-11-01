@@ -74,15 +74,15 @@
   <section>
     <h2>Create a code</h2>
     <label for="name">Client name</label>
-    <input id="name" type="text" placeholder="Kiyann Arthur">
+    <input id="name" type="text" placeholder="Maria Santos">
     <div class="row">
-      <div><label for="email">Email</label><input id="email" type="text" placeholder="Kiyann@email.com"></div>
+      <div><label for="email">Email</label><input id="email" type="text" placeholder="maria@email.com"></div>
       <div><label for="phone">Phone</label><input id="phone" type="text" placeholder="0917 123 4567"></div>
-      <div><label for="social">Social handle</label><input id="social" type="text" placeholder="fb @Kiyann"></div>
+      <div><label for="social">Social handle</label><input id="social" type="text" placeholder="@maria on Instagram"></div>
     </div>
     <div class="row">
-      <div><label for="amount">Amount paid</label><input id="amount" type="text" placeholder="2500"></div>
-      <div><label for="note">Payment reference / note</label><input id="note" type="text" placeholder="GCash - 123456789"></div>
+      <div><label for="amount">Amount paid</label><input id="amount" type="text" placeholder="PHP 499"></div>
+      <div><label for="note">Payment reference / note</label><input id="note" type="text" placeholder="GCash ref 1234"></div>
     </div>
     <div class="row">
       <div><label for="days">Valid for (days)</label><input id="days" type="number" min="1" value="14"></div>
@@ -209,6 +209,16 @@
 
   $("login").onclick = load;
 
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; }
+    catch {
+      const ta = document.createElement("textarea");
+      ta.value = t; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand("copy"); } catch {}
+      ta.remove(); return ok;
+    }
+  }
+
   function clearForm() {
     ["name", "email", "phone", "social", "amount", "note"].forEach((id) => { $(id).value = ""; });
     $("days").value = 14; $("uses").value = 5;
@@ -242,7 +252,11 @@
     const expires = new Date(Date.now() + Number($("days").value) * 864e5).toISOString();
     try {
       const r = await call("/admin/codes", "POST", { expires, access, maxUses: Number($("uses").value), name: v("name"), email: v("email"), phone: v("phone"), social: v("social"), amount: v("amount"), note: v("note") });
-      $("out").innerHTML = `<div class="result">Thank you, your payment is confirmed.\nGo to: ${esc(BUYER_PAGE)}\nYour access code: ${esc(r.code)}\nValid until ${new Date(r.expires).toLocaleDateString()}.</div>`;
+      const msgText = `Thank you, your payment is confirmed.\nGo to: ${BUYER_PAGE}\nYour access code: ${r.code}\nValid until ${new Date(r.expires).toLocaleDateString()}.\n\nGridlabs | Smarter Grids`;
+      $("out").innerHTML = `<div class="result">${esc(msgText)}</div><p><button id="copy" type="button">Copy message</button> <span id="copied" role="status" style="margin-left:8px;font-weight:600"></span></p>`;
+      $("copy").onclick = async () => {
+        $("copied").textContent = (await copyText(msgText)) ? "Copied. Paste it to your buyer." : "Could not copy. Select the text above and copy it manually.";
+      };
       clearForm(); // ready for the next customer; the generated message stays visible above
       load();
     } catch (e) { $("formerr").textContent = e.message; }
