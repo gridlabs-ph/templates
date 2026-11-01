@@ -3,11 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Code manager</title>
+<title>Gridlabs | Code manager</title>
+<link rel="icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+Cjxzdmcgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEzMzIgMTMzMyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxuczpzZXJpZj0iaHR0cDovL3d3dy5zZXJpZi5jb20vIiBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjI7Ij4KICAgIDxnIGlkPSJCYWNrZ3JvdW5kIiB0cmFuc2Zvcm09Im1hdHJpeCgyLjAzNTg0MSwwLDAsMi4wMzU4NDEsLTM3NS45MzQzMDMsLTM3Ni4yOTcxNDYpIj4KICAgICAgICA8cGF0aCBkPSJNMjE0Ljk2Myw2NTQuNUMyMTYuMzIyLDY0NC4wNzEgMjE1LjgwMiw2MTQuNjA4IDI1Ny41LDYxNC41OTNDMzc5LjMzMiw2MTQuNTQ4IDM3OS40NjUsNjE0LjUxMSAzODQuNTg1LDYxNi4yNzJDNDE0Ljk0NCw2MjYuNzEzIDQxMC4xMjIsNjQ4LjkyIDQxMC4xMjIsNzIyLjVDNDEwLjEyMiw3NzAuNTg4IDQxNy42MTEsODA5Ljc3OSAzNjcuNSw4MDkuNzg0QzI0MC44OTMsODA5Ljc5NyAyMzguNTU5LDgxMS41MiAyMjUuOTg2LDc5OS4wMTlDMjEzLjE0Myw3ODYuMjUxIDIxNC45NjMsNzgzLjgyMiAyMTQuOTYzLDY1NC41WiIgc3R5bGU9ImZpbGw6cmdiKDMwLDEwOSw4NCk7Ii8+CiAgICAgICAgPHBhdGggZD0iTTgwOS4wNDEsNzY2LjVDODA4Ljk5NSw3NjguMjc4IDgxMS41NzMsNzg5Ljg2NiA3OTMuMTU5LDgwMy4wNTJDNzgzLjkzNCw4MDkuNjU3IDc4MC4yMzcsODEyLjMwNSA2NTEuNDk3LDgwOS43OEM2MDUuMjY2LDgwOC44NzMgNjEzLjg4NCw3NTIuNzcyIDYxMy44ODQsNzQ4LjVDNjEzLjg4NCw2MzguMzkyIDYxMC40ODEsNjMxLjUxOSA2MzMuNTk2LDYxOC42ODZDNjQzLjAzNiw2MTMuNDQ1IDY0NC4xMjksNjEyLjgzOCA3NjguNSw2MTQuNTlDODE2LjEyMSw2MTUuMjYxIDgwOC45NzIsNjU0Ljc3IDgwOC45NzIsNzA1LjVMODA4Ljk3Miw3MzEuNUM4MDguOTcyLDc0OS4xNjUgODA4Ljk4Niw3NDguOTY5IDgwOS4wNDEsNzY2LjVaIiBzdHlsZT0iZmlsbDpyZ2IoMzAsMTEwLDg1KTsiLz4KICAgICAgICA8cGF0aCBkPSJNNzQ1LjUsMjE0Ljk2OEM3NTUuNjc3LDIxNS4wMTIgODA4Ljk3NywyMDcuMDY4IDgwOS4wMzgsMjU0LjUwMUM4MDkuMjAzLDM4My40ODUgODA5LjIzOCwzODQuMjkgODAzLjEzMiwzOTMuMjY2Qzc4OS42MzYsNDEzLjEwNyA3ODQuNTQ3LDQxMC4xMTkgNjc5LjUsNDEwLjExOUM2NjcuOTk0LDQxMC4xMTkgNjE0LjM0NSw0MTguMjU0IDYxMy44ODMsMzcyLjQ5OUM2MTIuNTk5LDI0NS4zMTQgNjEzLjE3NywyNDQuMTk3IDYxOC4yNTcsMjM0LjM3OEM2MzAuMTEsMjExLjQ3MSA2NDMuNDgsMjE0Ljk2OCA3NDUuNSwyMTQuOTY4WiIgc3R5bGU9ImZpbGw6cmdiKDI4LDExMCw4NCk7Ii8+CiAgICAgICAgPHBhdGggZD0iTTIxNC45NjUsMjU3LjUwMUMyMTYuMTMxLDI0My45OTIgMjEzLjM4MiwyNDMuMDg3IDIyMSwyMzEuODE2QzIyOS41OTQsMjE5LjEwMiAyNDIuMzU5LDIxNi4zNzggMjQ0LjU4NSwyMTUuOTAzQzI1My4xOTYsMjE0LjA2NiAzNzcuNDI5LDIxNS4yODIgMzc3LjUzMSwyMTUuM0M0MTYuMTY4LDIyMi4xNDIgNDEwLjEyMiwyNTIuMTA2IDQxMC4xMjIsMzE0LjVDNDEwLjEyMiwzNzUuMzMxIDQxNy4yMTUsNDEwLjA3NiAzNjcuNDk5LDQxMC4xMThDMjM5LjQzNiw0MTAuMjI0IDIzNi45OTMsNDExLjUyMSAyMjUuNzQ5LDM5OS4yNTdDMjEzLjI1NCwzODUuNjI5IDIxNC45NTQsMzgzLjU2MSAyMTQuOTY1LDI1Ny41MDFaIiBzdHlsZT0iZmlsbDpyZ2IoMzAsMTA5LDg0KTsiLz4KICAgICAgICA8cGF0aCBkPSJNMjE0Ljk2OCw0NTguNUMyMTUuMTI0LDQ1Ni42NTggMjExLjE4NCw0MTQuOTU0IDI1NS40OTksNDE0LjkyNkMzNzkuOTk3LDQxNC44NDkgMzgwLjE1Niw0MTQuODcgMzg1LjQsNDE2Ljc5NEM0MTQuODMxLDQyNy41OSA0MTAuMTIyLDQ0OS4wNTQgNDEwLjEyMiw1MjQuNUM0MTAuMTIyLDU2OS41NTggNDE3LjY0OSw2MTAuMzk0IDM2Ny40OTgsNjEwLjAyOEMyNDkuMTQ5LDYwOS4xNjYgMjQwLjc1Nyw2MTQuMDM1IDIyNS44NzksNTk5LjEyNEMyMTMuMTc3LDU4Ni4zOTQgMjE0Ljk2OCw1ODQuMDI1IDIxNC45NjgsNDU4LjVaIiBzdHlsZT0iZmlsbDpyZ2IoMjgsMTEwLDg1KTsiLz4KICAgICAgICA8cGF0aCBkPSJNNzY5LjQ5OSw2MTAuMDM3QzYzOS43ODEsNjA5Ljk5NCA2MzcuNDIyLDYxMS44NjYgNjI0LjcyNCw1OTkuMjc5QzYxMS45NzEsNTg2LjYzNyA2MTMuOTA5LDU4NC4yMjMgNjEzLjg4Myw0NTcuNUM2MTMuODczLDQwNy44MDkgNjQ5LjcxMyw0MTQuOTE4IDcwNS41LDQxNC45MThDNzczLjc1Nyw0MTQuOTE4IDc5My43OTEsNDEwLjcxMyA4MDUuNjEzLDQzNi40NDVDODExLjU2Niw0NDkuNDAyIDgwOC40OTIsNDUwLjA2IDgwOC45NjgsNTcwLjQ5OUM4MDkuMTE2LDYwNy45NDEgNzczLjk2Miw2MDkuODAxIDc2OS40OTksNjEwLjAzN1oiIHN0eWxlPSJmaWxsOnJnYigyOCwxMTAsODUpOyIvPgogICAgICAgIDxwYXRoIGQ9Ik00MTQuOTE3LDcxNi41QzQxNC45MTcsNjQ2LjUzMSA0MTAuMjIxLDYyNy44NDIgNDQwLjQxNSw2MTYuMjZDNDQ1LjU1Miw2MTQuMjg5IDU3NS4xLDYxMi4xMzggNTg2LjUyNyw2MTcuNDM4QzYxMi45NjQsNjI5LjY5OSA2MDkuMDg1LDYzOC43NTggNjA5LjA4NSw3NDQuNUM2MDkuMDg1LDc1NC4yNDYgNjE3LjU4OCw4MDkuNzUzIDU3MC41LDgwOS43NzRDNDQ2LjQ1Nyw4MDkuODMgNDQ2LjI4Miw4MTAuMDAxIDQzOC41ODksODA3LjI1M0M0MTAuMDE3LDc5Ny4wNDggNDE0LjkxNyw3NjguNTY3IDQxNC45MTcsNzE2LjVaIiBzdHlsZT0iZmlsbDpyZ2IoMjgsMTEwLDg1KTsiLz4KICAgICAgICA8cGF0aCBkPSJNNDU0LjUsMjE0Ljk2OEM1NzcuMjE3LDIxNS4zMDYgNTc3LjYyLDIxNC4wOSA1ODYuMzY2LDIxNy44MTRDNjEzLjI4NywyMjkuMjc0IDYwOS4wODUsMjQ2LjE2NCA2MDkuMDg1LDMzMy41QzYwOS4wODUsMzYzLjYxMyA2MTYuNzQ4LDQxMC4wNjYgNTY5LjUwMSw0MTAuMTA4QzQ0NC40MDEsNDEwLjIyIDQ0NC4yNiw0MTAuMDE1IDQzOS41ODgsNDA4LjI1NEM0MTAuMjA4LDM5Ny4xNzggNDE0LjkxNywzNzYuMTc1IDQxNC45MTcsMzA0LjVDNDE0LjkxNywyNTIuOTEgNDA4LDIxNy4wNSA0NTQuNSwyMTQuOTY4WiIgc3R5bGU9ImZpbGw6cmdiKDI4LDExMCw4NSk7Ii8+CiAgICAgICAgPHBhdGggZD0iTTQ1My40OTksNjEwLjAzQzQzNi41NDMsNjA3Ljg3MiA0MzQuNjE0LDYxMC40MzQgNDIzLjgyMiw1OTcuMjM0QzQxMy42ODQsNTg0LjgzNSA0MTQuODcsNTgzLjMwOCA0MTQuOTE5LDQ1NS41MDFDNDE0LjkzOCw0MDcuNDcgNDU2LjE5Miw0MTQuOTE4IDUwNC41LDQxNC45MThDNTc0LjYxLDQxNC45MTggNTk2LjE0Niw0MTAuMTc4IDYwNy4yMzgsNDM5LjU5MkM2MTAuODc3LDQ0OS4yNDMgNjA5LjQxNyw0NDkuNjEzIDYwOS4wODUsNTY4LjVDNjA5LjA3NCw1NzIuNjQ1IDYwOC45ODcsNjAzLjgyOCA1NzcuNTE0LDYwOS41NzVDNTcyLjg2Miw2MTAuNDI0IDUyMy4zMTgsNjA5LjY3OCA0NTMuNDk5LDYxMC4wM1oiIHN0eWxlPSJmaWxsOnJnYigzMSwxMDksODQpOyIvPgogICAgICAgIDxwYXRoIGQ9Ik00MDQuOTIzLDM3MS41QzQwMS4wMTQsNDEwLjM2NCAzODIuMzA3LDQwNC45MTcgMzA0LjUsNDA0LjkxN0MyNjAuNTQxLDQwNC45MTcgMjI2LjI4OSw0MTAuNjIgMjIwLjg2MiwzNzguNDQ0QzIyMC40NTcsMzc2LjA0MyAyMTkuNzExLDI0OS42OCAyMjEuMzAxLDI0NC40NDZDMjI5Ljk2MiwyMTUuOTMzIDI0Ny45NjYsMjIwLjQ2MiAzMjEuNSwyMjAuNDYyQzM2OC40NDMsMjIwLjQ2MiAzOTYuMDMyLDIxNS42NDIgNDAzLjYzMiwyNDMuNDYyQzQwNS4yMjcsMjQ5LjMwMSA0MDQuODg4LDI0OS4zOTcgNDA0LjkyMywzNzEuNVoiIHN0eWxlPSJmaWxsOnJnYigyNTQsMjU0LDI1NCk7Ii8+CiAgICAgICAgPHBhdGggZD0iTTc3MC41MDEsNjIwLjAzOEM4MDkuODUxLDYyMS4yMjUgODAzLjU1NSw2NTQuODk1IDgwMy41NTUsNzA1LjVDODAzLjU1NSw3NzQuMDcyIDgwNy44ODgsNzkzLjkyOCA3ODEuNjE2LDgwMi44NTVDNzc2LjY4NCw4MDQuNTMxIDY0Ny40NDcsODA2LjA0NCA2MzguNzA3LDgwMi4wMThDNjE1LjYsNzkxLjM3NCA2MTkuMDY3LDc4My44MDkgNjE5LjA2Nyw2ODAuNUM2MTkuMDY3LDY2NS4xNiA2MTMuNzUsNjMwLjEyMSA2NDAuNTIsNjIxLjU2NUM2NDUuODk1LDYxOS44NDcgNjQ2LjAxOCw2MjAuMDE4IDc3MC41MDEsNjIwLjAzOFoiIHN0eWxlPSJmaWxsOnJnYigyNTQsMjU0LDI1NCk7Ii8+CiAgICAgICAgPHBhdGggZD0iTTMxMi41LDYyMC4wMzZDMzc5LjE2Miw2MjAuMDM2IDM4NC4wNzQsNjE4LjIzIDM5NS4yMzQsNjI4Ljc3OUM0MDYuNTA5LDYzOS40MzggNDA0LjkzMyw2NDEuNjgyIDQwNC45MTksNzU5LjVDNDA0LjkxMiw4MTAuMTU2IDM4NS4xMjgsODA0LjE5NyAzMTguNSw4MDQuMTk3QzI0OS45NDMsODA0LjE5NyAyMzAuNzgzLDgwOC40OSAyMjEuOTE0LDc4Mi4zNTZDMjE5LjI2Niw3NzQuNTU1IDIyMC4xNiw2NDcuNjc1IDIyMS40MzQsNjQzLjQ4MUMyMjkuOTUsNjE1LjQ0NyAyNTAuNTcyLDYyMC4wMzYgMzEyLjUsNjIwLjAzNloiIHN0eWxlPSJmaWxsOnJnYigyNTQsMjU0LDI1NCk7Ii8+CiAgICAgICAgPHBhdGggZD0iTTYwMy44OTIsNDUzLjVDNjAzLjg2Myw1ODMuMDk4IDYwNS42NjIsNTg1LjY5NyA1OTMuNDM0LDU5Ni40MjZDNTg0Ljk0NCw2MDMuODc1IDU4MS4wMzcsNjA3LjMwMyA0NTIuNSw2MDQuNjA0QzQxMy40NjcsNjAzLjc4NCA0MjAuMTAzLDU2My45NDEgNDIwLjEwMyw1MTkuNUM0MjAuMTAzLDQ1MS4xMjEgNDE1LjU5Myw0MjkuMjM5IDQ0My40MzksNDIxLjI5QzQ0Ni41MjQsNDIwLjQwOSA1NzIuMjAyLDQxNy4zMTggNTg1LjI5OSw0MjIuOTIzQzYwMi40OTQsNDMwLjI4MyA2MDMuNzIsNDUwLjY0MyA2MDMuODkyLDQ1My41WiIgc3R5bGU9ImZpbGw6cmdiKDI1NCwyNTQsMjU0KTsiLz4KICAgIDwvZz4KPC9zdmc+Cg==">
 <style>
-  :root { --bg:#f3f5f2; --ink:#1d2a24; --muted:#5d6b64; --panel:#fff; --line:#d3dad5; --accent:#1f5c46; --on:#fff; --bad:#a3261b; }
+  :root { --bg:#f3f5f2; --ink:#1d2a24; --muted:#5d6b64; --panel:#fff; --line:#d3dad5; --accent:#1e6d54; --on:#fff; --bad:#a3261b; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
     --bg:#121815; --ink:#e6ede8; --muted:#93a39a; --panel:#1a221e; --line:#2c3731; --accent:#5fbf98; --on:#0d1a14; --bad:#ff8a7d; } }
+  .logo { width: 56px; height: 56px; flex: none; }
+  .logo svg { width: 100%; height: 100%; display: block; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .name { font: 700 1.35rem/1.1 Georgia, 'Times New Roman', serif; }
+  .tag { color: var(--muted); font: 0.9rem system-ui, sans-serif; letter-spacing: .04em; margin-top: 2px; }
   * { box-sizing: border-box; }
   body { margin:0; padding:24px; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,sans-serif; }
   main { max-width: 860px; margin: 0 auto; display: grid; gap: 28px; }
@@ -24,6 +30,7 @@
   #picker { max-height:220px; overflow:auto; border:1.5px solid var(--line); border-radius:6px; padding:8px 12px; background:var(--bg); }
   #picker label { font-weight:400; margin:3px 0; display:flex; gap:8px; align-items:center; }
   #picker .dir { font-weight:600; }
+  #picker label:has(input:disabled) { opacity:.45; }
   .result { margin-top:14px; padding:12px; border:1.5px dashed var(--accent); border-radius:6px; white-space:pre-wrap; }
   #err { color:var(--bad); min-height:1.4em; }
   .tablewrap { overflow-x:auto; }
@@ -35,6 +42,23 @@
 </head>
 <body>
 <main>
+  <header class="brand"><div class="logo"><svg role="img" aria-label="Gridlabs logo" viewBox="0 0 1332 1333" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Background" transform="matrix(2.035841,0,0,2.035841,-375.934303,-376.297146)">
+        <path d="M214.963,654.5C216.322,644.071 215.802,614.608 257.5,614.593C379.332,614.548 379.465,614.511 384.585,616.272C414.944,626.713 410.122,648.92 410.122,722.5C410.122,770.588 417.611,809.779 367.5,809.784C240.893,809.797 238.559,811.52 225.986,799.019C213.143,786.251 214.963,783.822 214.963,654.5Z" style="fill:rgb(30,109,84);"/>
+        <path d="M809.041,766.5C808.995,768.278 811.573,789.866 793.159,803.052C783.934,809.657 780.237,812.305 651.497,809.78C605.266,808.873 613.884,752.772 613.884,748.5C613.884,638.392 610.481,631.519 633.596,618.686C643.036,613.445 644.129,612.838 768.5,614.59C816.121,615.261 808.972,654.77 808.972,705.5L808.972,731.5C808.972,749.165 808.986,748.969 809.041,766.5Z" style="fill:rgb(30,110,85);"/>
+        <path d="M745.5,214.968C755.677,215.012 808.977,207.068 809.038,254.501C809.203,383.485 809.238,384.29 803.132,393.266C789.636,413.107 784.547,410.119 679.5,410.119C667.994,410.119 614.345,418.254 613.883,372.499C612.599,245.314 613.177,244.197 618.257,234.378C630.11,211.471 643.48,214.968 745.5,214.968Z" style="fill:rgb(28,110,84);"/>
+        <path d="M214.965,257.501C216.131,243.992 213.382,243.087 221,231.816C229.594,219.102 242.359,216.378 244.585,215.903C253.196,214.066 377.429,215.282 377.531,215.3C416.168,222.142 410.122,252.106 410.122,314.5C410.122,375.331 417.215,410.076 367.499,410.118C239.436,410.224 236.993,411.521 225.749,399.257C213.254,385.629 214.954,383.561 214.965,257.501Z" style="fill:rgb(30,109,84);"/>
+        <path d="M214.968,458.5C215.124,456.658 211.184,414.954 255.499,414.926C379.997,414.849 380.156,414.87 385.4,416.794C414.831,427.59 410.122,449.054 410.122,524.5C410.122,569.558 417.649,610.394 367.498,610.028C249.149,609.166 240.757,614.035 225.879,599.124C213.177,586.394 214.968,584.025 214.968,458.5Z" style="fill:rgb(28,110,85);"/>
+        <path d="M769.499,610.037C639.781,609.994 637.422,611.866 624.724,599.279C611.971,586.637 613.909,584.223 613.883,457.5C613.873,407.809 649.713,414.918 705.5,414.918C773.757,414.918 793.791,410.713 805.613,436.445C811.566,449.402 808.492,450.06 808.968,570.499C809.116,607.941 773.962,609.801 769.499,610.037Z" style="fill:rgb(28,110,85);"/>
+        <path d="M414.917,716.5C414.917,646.531 410.221,627.842 440.415,616.26C445.552,614.289 575.1,612.138 586.527,617.438C612.964,629.699 609.085,638.758 609.085,744.5C609.085,754.246 617.588,809.753 570.5,809.774C446.457,809.83 446.282,810.001 438.589,807.253C410.017,797.048 414.917,768.567 414.917,716.5Z" style="fill:rgb(28,110,85);"/>
+        <path d="M454.5,214.968C577.217,215.306 577.62,214.09 586.366,217.814C613.287,229.274 609.085,246.164 609.085,333.5C609.085,363.613 616.748,410.066 569.501,410.108C444.401,410.22 444.26,410.015 439.588,408.254C410.208,397.178 414.917,376.175 414.917,304.5C414.917,252.91 408,217.05 454.5,214.968Z" style="fill:rgb(28,110,85);"/>
+        <path d="M453.499,610.03C436.543,607.872 434.614,610.434 423.822,597.234C413.684,584.835 414.87,583.308 414.919,455.501C414.938,407.47 456.192,414.918 504.5,414.918C574.61,414.918 596.146,410.178 607.238,439.592C610.877,449.243 609.417,449.613 609.085,568.5C609.074,572.645 608.987,603.828 577.514,609.575C572.862,610.424 523.318,609.678 453.499,610.03Z" style="fill:rgb(31,109,84);"/>
+        <path d="M404.923,371.5C401.014,410.364 382.307,404.917 304.5,404.917C260.541,404.917 226.289,410.62 220.862,378.444C220.457,376.043 219.711,249.68 221.301,244.446C229.962,215.933 247.966,220.462 321.5,220.462C368.443,220.462 396.032,215.642 403.632,243.462C405.227,249.301 404.888,249.397 404.923,371.5Z" style="fill:rgb(254,254,254);"/>
+        <path d="M770.501,620.038C809.851,621.225 803.555,654.895 803.555,705.5C803.555,774.072 807.888,793.928 781.616,802.855C776.684,804.531 647.447,806.044 638.707,802.018C615.6,791.374 619.067,783.809 619.067,680.5C619.067,665.16 613.75,630.121 640.52,621.565C645.895,619.847 646.018,620.018 770.501,620.038Z" style="fill:rgb(254,254,254);"/>
+        <path d="M312.5,620.036C379.162,620.036 384.074,618.23 395.234,628.779C406.509,639.438 404.933,641.682 404.919,759.5C404.912,810.156 385.128,804.197 318.5,804.197C249.943,804.197 230.783,808.49 221.914,782.356C219.266,774.555 220.16,647.675 221.434,643.481C229.95,615.447 250.572,620.036 312.5,620.036Z" style="fill:rgb(254,254,254);"/>
+        <path d="M603.892,453.5C603.863,583.098 605.662,585.697 593.434,596.426C584.944,603.875 581.037,607.303 452.5,604.604C413.467,603.784 420.103,563.941 420.103,519.5C420.103,451.121 415.593,429.239 443.439,421.29C446.524,420.409 572.202,417.318 585.299,422.923C602.494,430.283 603.72,450.643 603.892,453.5Z" style="fill:rgb(254,254,254);"/>
+    </g>
+</svg></div><div><div class="name">Gridlabs</div><div class="tag">Smarter Grids</div></div></header>
   <h1>Code manager</h1>
 
   <section>
@@ -65,12 +89,12 @@
     </div>
     <label>Files and folders they can access</label>
     <div id="picker">Log in to load your files.</div>
-    <p><button id="make">Generate code</button></p>
+    <p><button id="make">Generate code</button> <button id="clear" class="ghost" type="button">Clear form</button></p>
     <div id="out"></div>
   </section>
 
   <section>
-    <h2>Client codes</h2>
+    <h2>Client codes <span id="count"></span></h2>
     <p><button id="export" class="ghost">Export all to CSV</button></p>
     <div class="tablewrap"><table>
       <thead><tr><th>Code</th><th>Client</th><th>Created</th><th>Status</th><th>Used</th><th>Access</th><th></th></tr></thead>
@@ -81,7 +105,7 @@
 
 <script>
   // >>> EDIT 1 OF 2: replace with your Cloudflare Worker URL (no trailing slash) <<<
-  const API = "https://katabang.support-gridlabs.workers.dev";
+  const API = "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev";
   // >>> EDIT 2 OF 2: only change this if your repo name is not "templates" <<<
   const BUYER_PAGE = "https://gridlabs-ph.github.io/templates/";
 
@@ -100,27 +124,55 @@
     return data;
   }
 
+  // Codes arrive in pages of 40 so the free Cloudflare plan's per-request limit is never hit
+  async function loadCodes() {
+    const all = []; let cursor = "";
+    do {
+      const r = await call("/admin/codes" + (cursor ? "?cursor=" + encodeURIComponent(cursor) : ""));
+      all.push(...r.codes); cursor = r.cursor || "";
+    } while (cursor);
+    return all;
+  }
+
   async function load() {
     $("err").textContent = "";
     try {
-      const [f, c] = await Promise.all([call("/admin/files"), call("/admin/codes")]);
-      renderPicker(f.files); codes = c.codes; renderCodes();
+      const [f, all] = await Promise.all([call("/admin/files"), loadCodes()]);
+      renderPicker(f.files); codes = all; renderCodes();
     } catch (e) { $("err").textContent = e.message; }
   }
 
   function renderPicker(files) {
-    const dirs = new Set();
-    files.forEach((k) => { const p = k.split("/"); p.pop(); let acc = ""; p.forEach((seg) => { acc += seg + "/"; dirs.add(acc); }); });
-    const items = [...dirs].map((d) => ({ v: d, dir: true })).concat(files.map((k) => ({ v: k, dir: false })))
-      .sort((a, b) => a.v.localeCompare(b.v));
-    $("picker").innerHTML = items.length ? items.map((it) =>
-      `<label class="${it.dir ? "dir" : ""}"><input type="checkbox" value="${esc(it.v)}"> ${it.dir ? "Folder: " : ""}${esc(it.v)}</label>`).join("")
-      : "No files in the bucket yet.";
+    // Build a folder tree, then print it with indentation (folders first, then files)
+    const root = { dirs: {}, files: [] };
+    files.forEach((k) => {
+      const parts = k.split("/"), name = parts.pop(); let n = root, path = "";
+      parts.forEach((seg) => { path += seg + "/"; n = n.dirs[seg] = n.dirs[seg] || { dirs: {}, files: [], path }; });
+      n.files.push({ name, key: k });
+    });
+    const cmp = (x, y) => x.localeCompare(y, undefined, { numeric: true, sensitivity: "base" });
+    const row = (value, label, isDir, depth) =>
+      `<label class="${isDir ? "dir" : ""}" style="padding-left:${depth * 22}px"><input type="checkbox" value="${esc(value)}"> ${isDir ? "\u{1F4C1} " : ""}${esc(label)}</label>`;
+    const out = [];
+    (function walk(n, depth) {
+      Object.keys(n.dirs).sort(cmp).forEach((d) => { out.push(row(n.dirs[d].path, d, true, depth)); walk(n.dirs[d], depth + 1); });
+      n.files.sort((x, y) => cmp(x.name, y.name)).forEach((f) => out.push(row(f.key, f.name, false, depth)));
+    })(root, 0);
+    $("picker").innerHTML = out.length ? out.join("") : "No files in the bucket yet.";
   }
+
+  // Ticking a folder covers everything inside it, so grey out and untick its contents
+  $("picker").addEventListener("change", (e) => {
+    const t = e.target; if (!t.value || !t.value.endsWith("/")) return;
+    document.querySelectorAll("#picker input").forEach((i) => {
+      if (i !== t && i.value.startsWith(t.value)) { if (t.checked) i.checked = false; i.disabled = t.checked; }
+    });
+  });
 
   const status = (c) => c.revoked ? "Revoked" : Date.now() > Date.parse(c.expires) ? "Expired" : "Active until " + new Date(c.expires).toLocaleDateString();
 
   function renderCodes() {
+    $("count").textContent = "(" + codes.length + ")";
     $("rows").innerHTML = codes.length ? codes.sort((a, b) => Date.parse(b.created || 0) - Date.parse(a.created || 0)).map((c) => {
       const off = c.revoked || Date.now() > Date.parse(c.expires);
       return `<tr><td><code>${esc(c.code)}</code></td>
@@ -155,6 +207,14 @@
 
   $("login").onclick = load;
 
+  function clearForm() {
+    ["name", "email", "phone", "social", "amount", "note"].forEach((id) => { $(id).value = ""; });
+    $("days").value = 14; $("uses").value = 5;
+    document.querySelectorAll("#picker input").forEach((i) => { i.checked = false; i.disabled = false; });
+    $("err").textContent = "";
+  }
+  $("clear").onclick = () => { clearForm(); $("out").innerHTML = ""; };
+
   $("make").onclick = async () => {
     const access = [...document.querySelectorAll("#picker input:checked")].map((i) => i.value);
     if (!access.length) { $("err").textContent = "Tick at least one file or folder."; return; }
@@ -162,6 +222,7 @@
     try {
       const r = await call("/admin/codes", "POST", { expires, access, maxUses: Number($("uses").value), name: $("name").value, email: $("email").value, phone: $("phone").value, social: $("social").value, amount: $("amount").value, note: $("note").value });
       $("out").innerHTML = `<div class="result">Thank you, your payment is confirmed.\nGo to: ${esc(BUYER_PAGE)}\nYour access code: ${esc(r.code)}\nValid until ${new Date(r.expires).toLocaleDateString()}.</div>`;
+      clearForm(); // ready for the next customer; the generated message stays visible above
       load();
     } catch (e) { $("err").textContent = e.message; }
   };
